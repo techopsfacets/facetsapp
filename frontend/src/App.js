@@ -1,25 +1,58 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { BrowserRouter as  Switch, Route } from 'react-router-dom';
 
-function App() {
+import NavBar from "./components/common/Header.js";
+import Login from "./pages/Login.js";
+import Signup_User from "./pages/signup_page/Signup_User.js";
+import Signup_Type from "./pages/signup_page/Signup_Type";
+import Signup_Desc from "./pages/signup_page/Signup_Desc";
+import Signup_Cat from "./pages/signup_page/Signup_Cat";
+import Signup_Social from "./pages/signup_page/Signup_Social";
+import Landing_page from "./pages/Landing_page";
+import Footer from "./components/common/Footer";
+import Creator_info_page from "./pages/Creator_info_page";
+
+
+export default function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React Now
-        </a>
-      </header>
+    <div>
+      <Switch>
+        <Route exact path="/login">
+            <Login />
+        </Route>
+        <Route exac1t path="/dashboard">
+          <Login />
+        </Route>
+        <Route exact path="/profile">
+          <Login />
+        </Route>
+        <Route exact path="/workflow">
+          <Login />
+        </Route>
+        <Route exact path="/signuptype">
+          <Signup_Type />
+        </Route>
+        <Route exact path="/signupsocial">
+          <Signup_Social />
+        </Route>
+        <Route exact path="/signupuser">
+          <Signup_User/>
+        </Route>
+        <Route exact path="/signupdesc">
+          <Signup_Desc />
+        </Route>
+        <Route exact path="/signupcat">
+          <Signup_Cat />
+        </Route>
+        <Route path="/creatorinfo">
+          <NavBar />
+          <Creator_info_page />
+        </Route>
+        <Route path="/">
+          <NavBar />
+          <Landing_page />
+        </Route>
+      </Switch>
     </div>
   );
 }
-
-export default App;
