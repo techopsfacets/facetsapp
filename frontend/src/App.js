@@ -44,11 +44,11 @@ export default function App() {
         <Route exact path="/signupcat">
           <Signup_Cat />
         </Route>
-        <Route path="/creatorinfo">
+        <Route exact path="/creatorinfo">
           <NavBar />
           <Creator_info_page />
         </Route>
-        <Route path="/">
+        <Route exact path="/">
           <NavBar />
           <Landing_page />
         </Route>
