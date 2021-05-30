@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import { LoginContext } from '../contexts/AppContexts';
+import { appContext } from '../contexts/AppContexts';
 import axios from "axios";
 import "../stylesheets/module.scss";
 import {CognitoUser, AuthenticationDetails } from "amazon-cognito-identity-js";
@@ -7,7 +7,7 @@ import UserPool from "../UserPool";
 
 
 export default function Login() {
-const [user,setUser] = useContext(appContext);
+const [user,setUser] = useContext({appContext});
 
 const [email,setEmail] = useState("")
 const [password,setPassword] = useState("")
@@ -60,7 +60,7 @@ const [password,setPassword] = useState("")
               <label>Password</label>
               <input
                 type="Password"
-                value={Password}
+                value={password}
                 onChange={({ target }) => setPassword(target.value)}
               ></input>
             </div>

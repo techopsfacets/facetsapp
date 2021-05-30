@@ -1,8 +1,8 @@
 import React, {useState, useContext} from 'react'
-import {LoginContext} from '../contexts/LoginContexts'
+import {appContext} from '../contexts/AppContexts'
 
 const Profile_page = () => {
-    const {email} = useContext(LoginContext);
+    const {email} = useContext(appContext);
 
     return (
         <div>
