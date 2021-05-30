@@ -12,15 +12,14 @@ import Landing_page from "./pages/Landing_page";
 import Footer from "./components/common/Footer";
 import Creator_info_page from "./pages/Creator_info_page";
 import Profile_page from "./pages/Profile_page.js";
-import { LoginContext } from './contexts/LoginContexts';
+import { LoginContext } from './contexts/AppContexts';
 
 
 export default function App() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [user, setUser] = useState("");
 
   return (
-    <LoginContext.Provider value={{email, setEmail, password, setPassword}}>
+    <LoginContext.Provider value={{user, setUser}}>
     <div>
       <Switch>
         <Route exact path="/login">

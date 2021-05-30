@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import { LoginContext } from '../contexts/LoginContexts';
+import { LoginContext } from '../contexts/AppContexts';
 import axios from "axios";
 import "../stylesheets/module.scss";
 import {CognitoUser, AuthenticationDetails } from "amazon-cognito-identity-js";
@@ -7,8 +7,10 @@ import UserPool from "../UserPool";
 
 
 export default function Login() {
-  const {setEmail, setPassword} = useContext(LoginContext);
+const [user,setUser] = useContext(appContext);
 
+const [email,setEmail] = useState("")
+const [password,setPassword] = useState("")
 
   const onSubmit = (event) => {
     event.preventDefault();
@@ -26,6 +28,7 @@ export default function Login() {
     user.authenticateUser(authDetails, {
       onSuccess: (data) => {
         console.log("onSuccess: ", data);
+        setUser(data);
       },
       onFailure: (err) => {
         console.log("onFailure: ", err);
@@ -49,6 +52,7 @@ export default function Login() {
               <label>Email</label>
               <input
                 type="email"
+                value={email}
                 onChange={({ target }) => setEmail(target.value)}
               ></input>
             </div>
@@ -56,6 +60,7 @@ export default function Login() {
               <label>Password</label>
               <input
                 type="Password"
+                value={Password}
                 onChange={({ target }) => setPassword(target.value)}
               ></input>
             </div>
