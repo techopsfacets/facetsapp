@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import { BrowserRouter as  Switch, Route } from 'react-router-dom';
 
 import NavBar from "./components/common/Header.js";
@@ -11,10 +11,16 @@ import Signup_Social from "./pages/signup_page/Signup_Social";
 import Landing_page from "./pages/Landing_page";
 import Footer from "./components/common/Footer";
 import Creator_info_page from "./pages/Creator_info_page";
+import Profile_page from "./pages/Profile_page.js";
+import { LoginContext } from './contexts/LoginContexts';
 
 
 export default function App() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
   return (
+    <LoginContext.Provider value={{email, setEmail, password, setPassword}}>
     <div>
       <Switch>
         <Route exact path="/login">
@@ -48,11 +54,15 @@ export default function App() {
           <NavBar />
           <Creator_info_page />
         </Route>
+        <Route exact path="/profilepage">
+            <Profile_page />
+        </Route>
         <Route exact path="/">
           <NavBar />
           <Landing_page />
         </Route>
       </Switch>
     </div>
+    </LoginContext.Provider>
   );
 }

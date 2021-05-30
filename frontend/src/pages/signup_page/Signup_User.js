@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { CognitoUserPool } from "amazon-cognito-identity-js"
 import '../../stylesheets/layout.scss'
 import Button from '../../components/common/Button'
+import UserPool from '../../UserPool'
 
 const Signup_User = () => {
     const [firstname, setfirstname] =  useState ("");
@@ -10,36 +11,19 @@ const Signup_User = () => {
     const [password, setPassword] = useState ("");
     const [passwordconfirm, setPasswordConfirm] = useState ("");
 
-    const poolData = {
-        UserPoolId: "us-east-1_ELSHlfJI5",
-        ClientId: "quapb8bjgjj16ti2jdgpoq1kt"
-    }
-
-    const userPool = new CognitoUserPool(poolData);
 
     const onSubmit = event => {
         event.preventDefault();
         console.log("submitted");
-        userPool.signUp(email, password, [], null, (err, data) =>{
+        UserPool.signUp(email, password, [], null, (err, data) =>{
             if(err) 
                 console.error(err);
             console.log(data);
         })
     };
-
-    // return (
-    //     <form onSubmit={onSubmit}>
-    //         <input value={email} 
-    //                 onChange={event=> setEmail(event.target.value)} 
-    //                 type = 'text' />
-    //         <input value={password} 
-    //                 onChange={event=> setPassword(event.target.value)}  
-    //                 type = 'text' />
-    //         <button>sign up</button>
-    //     </form>
-    // )
-    
+   
     return (
+        <div>
         <form onSubmit={onSubmit}>
             <div className = 'signupPage'>
                 <div className = 'signupBlock'>
@@ -72,9 +56,10 @@ const Signup_User = () => {
                                 type = 'text' />
 
                     </div>
-                    <div className = 'signupButtonNext'>
+                    <button type = "submit">signup</button>
+                    {/* <div className = 'signupButtonNext'>
                         <Button  text={'NEXTUser'} />
-                    </div>
+                    </div> */}
                 </div>
                 <div className = 'signupFooter'>
                     By signing up you are creating a facets account, and you {"\n"}
@@ -82,6 +67,7 @@ const Signup_User = () => {
                 </div>
             </div>
         </form>
+        </div>
     )
 }
 

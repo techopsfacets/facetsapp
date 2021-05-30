@@ -1,26 +1,41 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import { LoginContext } from '../contexts/LoginContexts';
 import axios from "axios";
 import "../stylesheets/module.scss";
+import {CognitoUser, AuthenticationDetails } from "amazon-cognito-identity-js";
+import UserPool from "../UserPool";
+
+
 export default function Login() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [user, setUser] = useState();
-  async function handleSubmit(e) {
-    const user = { email, password };
-    // const response = await axios.post("http://danbackend:3000/api/login", user);
-    let response = {
-      data: {
-        username: "themisterjuly",
-        firstName: "Andrew",
-        lastName: "Scott",
-        categories: ["Beauty", "Fashion", "Fitness"]
+  const {setEmail, setPassword} = useContext(LoginContext);
+
+
+  const onSubmit = (event) => {
+    event.preventDefault();
+    
+    const user = new CognitoUser({
+      Username: email,
+      Pool: UserPool
+    });
+    
+    const authDetails = new AuthenticationDetails({
+      Username: email,
+      Password: password,
+    });
+
+    user.authenticateUser(authDetails, {
+      onSuccess: (data) => {
+        console.log("onSuccess: ", data);
+      },
+      onFailure: (err) => {
+        console.log("onFailure: ", err);
+      },
+      newPasswordRequired: (data) => {
+        console.log("newPasswordRequired: ", data);
       }
-    };
-    setUser(response.data);
-    // store the user in localStorage
-    localStorage.setItem("user", JSON.stringify(response.data));
-    console.log(response.data);
+    });
   }
+
   return (
     <div className="login-container">
       <div className="login-form">
@@ -28,7 +43,7 @@ export default function Login() {
           <span>Sign in to your</span>
           <span> account.</span>
         </p>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={onSubmit}>
           <div>
             <div>
               <label>Email</label>
