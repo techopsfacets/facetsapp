@@ -2,11 +2,11 @@ import React, {useState, useContext} from 'react'
 import {appContext} from '../contexts/AppContexts'
 
 const Profile_page = () => {
-    const {email} = useContext(appContext);
+    const user = useContext(appContext);
 
     return (
         <div>
-            profile page {email}
+            profile page thji is {user.email}
         </div>
     )
 }

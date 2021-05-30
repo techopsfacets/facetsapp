@@ -4,6 +4,7 @@ import axios from "axios";
 import "../stylesheets/module.scss";
 import {CognitoUser, AuthenticationDetails } from "amazon-cognito-identity-js";
 import UserPool from "../UserPool";
+import Button from './../components/common/Button';
 
 
 export default function Login() {
@@ -24,6 +25,8 @@ const [password,setPassword] = useState("")
       Username: email,
       Password: password,
     });
+    
+    console.log("onsbmitcalled");
 
     user.authenticateUser(authDetails, {
       onSuccess: (data) => {
@@ -65,7 +68,7 @@ const [password,setPassword] = useState("")
               ></input>
             </div>
           </div>
-          <button type="submit">SIGN IN</button>
+          <Button type="submit" text={'SIGN IN'} />
         </form>
       </div>
     </div>

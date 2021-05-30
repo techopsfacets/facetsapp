@@ -104,7 +104,12 @@ const Button = ({text}) => {
             btnType = 'btn_skip'
             btnRoute = '/signupcat'
             text = 'SKIP'
-            break;                    
+            break;
+        case 'SIGN IN':
+            btnType = 'btn_skip'
+            btnRoute = '/profilepage'
+            text = 'SIGN IN'
+            break;                         
 }
 
     return (
