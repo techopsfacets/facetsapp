@@ -7,7 +7,7 @@ import UserPool from "../UserPool";
 
 
 export default function Login() {
-const [user,setUser] = useContext({appContext});
+const {user,setUser} = useContext(appContext);
 
 const [email,setEmail] = useState("")
 const [password,setPassword] = useState("")
