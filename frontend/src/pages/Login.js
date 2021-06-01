@@ -1,6 +1,5 @@
 import React, { useState, useContext } from "react";
 import { appContext } from '../contexts/AppContexts';
-import axios from "axios";
 import "../stylesheets/module.scss";
 import {CognitoUser, AuthenticationDetails } from "amazon-cognito-identity-js";
 import UserPool from "../UserPool";
@@ -8,39 +7,25 @@ import Button from './../components/common/Button';
 
 
 export default function Login() {
-const {user,setUser} = useContext(appContext);
 
-const [email,setEmail] = useState("")
-const [password,setPassword] = useState("")
+const [email,setEmail] = useState("");
+const [password,setPassword] = useState("");
+
+const { authenticate } = useContext(appContext);
 
   const onSubmit = (event) => {
     event.preventDefault();
-    
-    const user = new CognitoUser({
-      Username: email,
-      Pool: UserPool
-    });
-    
-    const authDetails = new AuthenticationDetails({
-      Username: email,
-      Password: password,
-    });
-    
-    console.log("onsbmitcalled");
 
-    user.authenticateUser(authDetails, {
-      onSuccess: (data) => {
-        console.log("onSuccess: ", data);
-        setUser(data);
-      },
-      onFailure: (err) => {
-        console.log("onFailure: ", err);
-      },
-      newPasswordRequired: (data) => {
-        console.log("newPasswordRequired: ", data);
-      }
-    });
-  }
+    console.log('authentic')
+    
+    authenticate(email,password)
+      .then(data => {
+        console.log('logged in !', data);
+      })
+      .catch (err =>{
+        console.log("failed to login", err);
+      })
+  };
 
   return (
     <div className="login-container">
@@ -68,7 +53,8 @@ const [password,setPassword] = useState("")
               ></input>
             </div>
           </div>
-          <Button type="submit" text={'SIGN IN'} />
+          {/* <Button type="submit" text={'SIGN IN'} /> */}
+          <button type="submit">sign in</button>
         </form>
       </div>
     </div>
