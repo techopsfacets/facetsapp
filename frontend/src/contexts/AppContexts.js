@@ -1,72 +1,72 @@
 import React, { createContext } from "react";
 import { CognitoUser, AuthenticationDetails } from "amazon-cognito-identity-js";
-import userPool from "../UserPool";
+import Pool from "../UserPool";
 
 const appContext = createContext();
 
-const app = props => {
-    const getSession = async () =>
-        await new Promise((resolve, reject) => {
-        const user = userPool.getCurrentUser();
-        if (user) {
-            user.getSession(async (err, session) => {
-            if (err) {
-                reject();
-            } 
-            else {
-                const attributes = await new Promise((resolve, reject) => {
-                    user.getUserAttributes((err, attributes) => {
-                        if (err) {
-                            reject(err);
-                        } else {
-                            const results = {};
-
-                            for (let attribute of attributes) {
-                                const { Name, Value } = attribute;
-                                results[Name] = Value;
-                            }
-                            resolve(results);
-                        }
-                    });
-                });
-                    resolve({
-                        user,
-                        ...session,
-                        ...attributes
-                    });
-                }
-            });
-        } 
-        else {
+const Apps = props => {
+  const getSession = async () =>
+    await new Promise((resolve, reject) => {
+      const user = Pool.getCurrentUser();
+      if (user) {
+        user.getSession(async (err, session) => {
+          if (err) {
             reject();
-        }
-    });
+          } else {
+            const attributes = await new Promise((resolve, reject) => {
+              user.getUserAttributes((err, attributes) => {
+                if (err) {
+                  reject(err);
+                } else {
+                  const results = {};
 
-    const authenticate = async (Username, Password) =>
-        await new Promise((resolve, reject) => {
-        const user = new CognitoUser({ Username, userPool });
-        const authDetails = new AuthenticationDetails({ Username, Password });
+                  for (let attribute of attributes) {
+                    const { Name, Value } = attribute;
+                    results[Name] = Value;
+                  }
 
-        user.authenticateUser(authDetails, {
-            onSuccess: data => {
-            console.log("onSuccess:", data);
-            resolve(data);
-            },
+                  resolve(results);
+                }
+              });
+            });
 
-            onFailure: err => {
-            console.error("onFailure:", err);
-            reject(err);
-            },
-
-            newPasswordRequired: data => {
-            console.log("newPasswordRequired:", data);
-            resolve(data);
-            }
+            resolve({
+              user,
+              ...session,
+              ...attributes
+            });
+          }
         });
+      } else {
+        reject();
+      }
     });
 
-    const logout = () => {
-    const user = userPool.getCurrentUser();
+  const authenticate = async (Username, Password) =>
+    await new Promise((resolve, reject) => {
+      const user = new CognitoUser({ Username, Pool });
+      const authDetails = new AuthenticationDetails({ Username, Password });
+
+      user.authenticateUser(authDetails, {
+        onSuccess: data => {
+          console.log("onSuccess:", data);
+          resolve(data);
+        },
+
+        onFailure: err => {
+          console.error("onFailure:", err);
+          reject(err);
+        },
+
+        newPasswordRequired: data => {
+          console.log("newPasswordRequired:", data);
+          resolve(data);
+        }
+      });
+    });
+
+  const logout = () => {
+    const user = Pool.getCurrentUser();
     if (user) {
       user.signOut();
     }
@@ -85,4 +85,4 @@ const app = props => {
   );
 };
 
-export { app, appContext };
+export { Apps, appContext };

@@ -11,15 +11,15 @@ import Signup_Social from "./pages/signup_page/Signup_Social";
 import Landing_page from "./pages/Landing_page";
 import Footer from "./components/common/Footer";
 import Creator_info_page from "./pages/Creator_info_page";
-import Profile_page from "./pages/Profile_page.js";
-import { appContext } from './contexts/AppContexts';
+import Profile_page from "./pages/Profile_page";
+import { Apps } from './contexts/AppContexts';
 
 
 export default function App() {
   const [user, setUser] = useState("");
 
   return (
-    <appContext.Provider value={{user, setUser}}>
+    <Apps>
     <div>
       <Switch>
         <Route exact path="/login">
@@ -62,6 +62,6 @@ export default function App() {
         </Route>
       </Switch>
     </div>
-    </appContext.Provider>
+    </Apps>
   );
 }
