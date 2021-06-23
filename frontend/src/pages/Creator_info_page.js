@@ -19,13 +19,13 @@ const Creator_info_page = () => {
                             <Button text={'SIGN UP'} />
                     </div>
                 </div> 
-                <div className = 'creatorinfoTopTextQuote'>"Thank you {"\n"}
-                                                                facets"!{"\n"}
-                        <div className = 'landingBodyTextQuoted'>Andrew July Scott (@themisterjuly) {"\n"}
+                <div className = 'creatorinfoTopTextQuote'>"Thank you facets"!{"\n"}
+                        <div className = 'landingBodyTextQuoted'>{"\n"}Andrew July Scott (@themisterjuly) {"\n"}
                             <div className = 'landingBodyTextQuoteReview'>
+                                                    {"\n"}
                                                     Something about how we blah blah {"\n"}
                                                     stuff and ways platform ablah, {"\n"}
-                                                    clever thoughts here. {"\n"}
+                                                    clever thoughts here. {"\n"}{"\n"}
                             </div>
                             <Button text={'SIGN UP'} />
                         </div> 
@@ -89,7 +89,7 @@ const Creator_info_page = () => {
                 <div className = 'creatorinfoBottomContainer '>
                     <div className = 'creatorinfoBottonContent'>CREATE WITH {"\n"}
                                                                 BRANDS YOU LOVE{"\n"}
-                        <div className = 'landingBodyTextQuoteReview'>
+                        <div className = 'landingBodyTextQuoteReview'>{"\n"}
                                                 Work with brands that are an authentic fit to all of
                                                 the things that make you special, so you can create
                                                 content that you're proud of!{"\n"}

@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import { BrowserRouter as  Switch, Route } from 'react-router-dom';
+import { BrowserRouter as  Switch, Route, useHistory } from 'react-router-dom';
 
 import NavBar from "./components/common/Header.js";
 import Login from "./pages/Login.js";
@@ -16,6 +16,7 @@ import { Apps } from './contexts/AppContexts';
 
 
 export default function App() {
+  
   const [user, setUser] = useState("");
 
   return (

@@ -1,10 +1,13 @@
 import React, { useState, useContext } from "react";
 import { appContext } from '../contexts/AppContexts';
+import { useHistory } from "react-router-dom";
 import "../stylesheets/module.scss";
 import Button from './../components/common/Button';
 
 
 export default function Login() {
+
+const history = useHistory();
 
 const [email,setEmail] = useState('');
 const [password,setPassword] = useState('');
@@ -19,10 +22,11 @@ const { authenticate } = useContext(appContext);
     authenticate(email,password)
       .then(data => {
         console.log('logged in !', data);
-        this.props.history.push('/profilepage')
+        history.push('/profilepage');
       })
       .catch (err =>{
         console.log("failed to login", err);
+        history.push('/profilepage');
       })
   };
 

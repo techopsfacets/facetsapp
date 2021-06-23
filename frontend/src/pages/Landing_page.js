@@ -13,7 +13,7 @@ const Landing_page = () => {
                                                             Marketing {"\n"}
                                                             is Here
                         <div className = 'landingHeaderText'>Get consumers talking about your brand and buying {"\n"}
-                                                                your products with creator marketing.{"\n"}
+                                                                your products with creator marketing.{"\n"}{"\n"}
                             <Button text={'LEARN MORE'} />
                         </div>
                     </div>
@@ -31,7 +31,7 @@ const Landing_page = () => {
                                                         brand campaigns is at the heart of what we do.  Quickly {"\n"}
                                                         match to thousands of influencers based on their {"\n"}
                                                         passions and lifestyles, ensuring and authentic expression {"\n"}
-                                                        of your brand that drives new customer sales.{"\n"}
+                                                        of your brand that drives new customer sales.{"\n"}{"\n"}
                                 <Button text={'LEARN MORE'} />
                             </div>
                         </div>
@@ -94,7 +94,7 @@ const Landing_page = () => {
                             <div className = 'landingBodyTextQuoteReview'>
                                                     Something about how we stand out for pros {"\n"}
                                                     in the marketing world. Saving them time, {"\n"}
-                                                    money, and increasing ROI. {"\n"}
+                                                    money, and increasing ROI. {"\n"}{"\n"}
                             </div>
                             <Button text={'LEARN MORE'} /> 
                         </div>
