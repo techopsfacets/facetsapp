@@ -1,6 +1,8 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
 # dependencies
+backend/creatorAPI/node_modules
+backend/creatorAPI/.serverless
 frontend/node_modules
 frontend/.pnp
 frontend/.pnp.js
