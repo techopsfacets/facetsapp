@@ -30,6 +30,19 @@ provider:
         - { "Fn::GetAtt": ["UsersDynamoDBTable", "Arn" ] }
   environment:
     USERS_TABLE: ${self:custom.tableName}
+  httpApi:
+    authorizers:
+      facetsAppAuthorizer:
+        identitySource: $request.header.Authorization
+        issuerUrl: 
+          Fn::Join:
+          - ''
+          - - 'https://cognito-idp.'
+            - '${opt:region, self:provider.region}'
+            - '.amazonaws.com/'
+            - Ref: serviceUserPool
+        audience:
+          - Ref: serviceUserPoolClient
 
 functions:
   app:
@@ -37,6 +50,27 @@ functions:
     events:
       - http: ANY /
       - http: 'ANY /{proxy+}'
+  getUser:
+    handler: get_user
+    events:
+      - httpApi:
+            method: GET
+            path: /users/{userid}
+            authorizer: facetsAppAuthorizer
+  createUser:
+    handler: create_user
+    events:
+      - httpApi:
+            method: POST
+            path: /users
+            authorizer: facetsAppAuthorizer
+  instagramPatch:
+    handler: update_instagram
+    events:
+      - httpApi:
+            method: PATCH
+            path: /user/{userid}/instagram
+            authorizer: facetsAppAuthorizer
 
 resources:
   Resources:
@@ -56,3 +90,42 @@ resources:
           ReadCapacityUnits: 1
           WriteCapacityUnits: 1
         TableName: ${self:custom.tableName}
+    HttpApi:
+      DependsOn: serviceUserPool
+    serviceUserPool:
+      Type: AWS::Cognito::UserPool
+      Properties:
+        UserPoolName: facetsapp-${opt:stage, self:provider.stage}
+        UsernameAttributes:
+          - email
+        AutoVerifiedAttributes:
+          - email
+    serviceUserPoolClient:
+      Type: AWS::Cognito::UserPoolClient
+      Properties:
+        ClientName: facetsapp-${opt:stage, self:provider.stage}
+        AllowedOAuthFlows:
+          - implicit
+        AllowedOAuthFlowsUserPoolClient: true
+        AllowedOAuthScopes:
+          - phone
+          - email
+          - openid
+          - profile
+          - aws.cognito.signin.user.admin
+        UserPoolId:
+          Ref: serviceUserPool
+        CallbackURLs: 
+          - https://example.com/callback
+        ExplicitAuthFlows:
+          - ALLOW_USER_SRP_AUTH
+          - ALLOW_REFRESH_TOKEN_AUTH
+        GenerateSecret: false
+        SupportedIdentityProviders: 
+          - COGNITO
+    serviceUserPoolDomain:
+      Type: AWS::Cognito::UserPoolDomain 
+      Properties:
+        UserPoolId: 
+          Ref: serviceUserPool
+        Domain: facets-${opt:stage, self:provider.stage}
