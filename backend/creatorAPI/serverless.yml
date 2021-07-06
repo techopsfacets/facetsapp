@@ -46,10 +46,16 @@ provider:
 
 functions:
   app:
-    handler: wsgi.handler
+    handler: wsgi_handler.handler
     events:
       - http: ANY /
       - http: 'ANY /{proxy+}'
+  getDefault:
+    handler: hello
+    events:
+      - httpApi:
+            method: '*'
+            path: /
   getUser:
     handler: get_user
     events:
