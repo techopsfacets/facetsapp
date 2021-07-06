@@ -11,7 +11,7 @@ client = boto3.client('dynamodb')
 
 @app.route("/")
 def hello():
-    return "Hello World! does this route work"
+    return "Hello World! does this route work",200
 
 # @app.route("/users")
 # def usersroot():
